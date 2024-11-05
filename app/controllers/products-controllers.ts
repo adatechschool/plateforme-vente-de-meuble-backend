@@ -30,15 +30,53 @@ const getProduct = (req: Request, res: Response) => {
             })
             console.log('Some error occured while getting product info.');
         } else {
-            res.send(data)
-
-            
+            res.send(data)    
         }
-       
-        
     })
 }
 
+const getAllProductsDashboard = (req: Request, res: Response) => {
+    Product.getAll((err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || 'Some error occured while getting posts.'
+            })
+            console.log('Some error occured while getting all products for the dashboard');
+
+        }
+        res.send(data)
+    })
+}
+
+const postNewProduct = (req: Request, res: Response) => {
+    if (!req.body) {
+        res.status(400).send({
+            message: "Content can not be empty!"
+        })
+    }
+    const newProduct = new Product({
+        product_name : req.body.product_name,
+        price : req.body.price,
+        type : req.body.type,
+        material : req.body.material,
+        color : req.body.color,
+        state : req.body.state,
+        description : req.body.description,
+        in_stock : req.body.in_stock,
+        user_id : req.body.user_id,
+        // updated_at : req.body.updated_at
+    })
+
+    Product.postNewProduct(newProduct, (err, data) => {
+        if (err) {
+            res.status(500).send({
+                message: err.message || 'Some error occured while creating post.'
+            })
+        } else {
+            res.send(data);
+        }
+    })
+}
 
 // const findById = (req ,res) => {
 //     Post.findById(req.params.id, (err, data) => {
@@ -65,3 +103,5 @@ const getImages = (productData: Product | null) => {
 
 exports.getAllProducts = getAllProducts
 exports.getProduct = getProduct
+exports.getAllProductsDashboard = getAllProductsDashboard
+exports.postNewProduct = postNewProduct

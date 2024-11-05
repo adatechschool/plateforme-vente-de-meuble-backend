@@ -11,9 +11,13 @@ const productRoutes = (app: Express) => {
     // define a route for the root path
     router.get('/home', products.getAllProducts)
 
-    //route for each product
+    // define a route for each product
     router.get('/product/:id', products.getProduct)
 
+    // define a route for dashboard
+    router.get('/dashboard', products.getAllProductsDashboard)
+
+    router.post('/dashboard/new-product', products.postNewProduct)
 
     // mount the router to the main app on the specified path
     app.use('/', router)
