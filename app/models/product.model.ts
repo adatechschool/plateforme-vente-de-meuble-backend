@@ -14,6 +14,7 @@ interface Product {
     updated_at: string;
     created_at: string;
     user_id: number;
+    image_links: string;
 }
 
 class Product {
@@ -31,7 +32,8 @@ class Product {
         this.in_stock = product.in_stock;
         this.updated_at = product.updated_at;
         this.created_at = product.created_at;
-        this.user_id = product.user_id
+        this.user_id = product.user_id;
+        this.image_links = product.image_links;
     }
 }
 
